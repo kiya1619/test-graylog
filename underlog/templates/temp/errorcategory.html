@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Data Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        .text-center {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #d46a6a;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Links */
+        nav {
+            background-color: #042208;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .styled-link {
+            display: inline-flex;
+            background-color: #0056b3;
+            align-items: center;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            padding: 10px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .styled-link:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .styled-link:focus {
+            outline: 2px solid #0056b3;
+            outline-offset: 4px;
+        }
+
+        .red {
+            color: pink;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ClientSideIssue {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+{% load static %}
+<body>
+
+    <!-- Header Section -->
+  
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/show" class="styled-link">Show Visual</a>
+        <a href="/logs" class="styled-link">ALL Logs</a>
+        <a href="/source_cat" class="styled-link"> Source Category</a>
+
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Error Types Links -->
+        <div class="text-center">
+            <a href="/general" class="styled-link">General Error <p class="red">({{ general_count }})</p></a>
+            <a href="/network" class="styled-link">Network Error <p class="red">({{ network_error_count }})</p></a>
+            <a href="/auth" class="styled-link">Authentication Error <p class="red"> ({{ Auth_count }})</p></a>
+            <a href="/database" class="styled-link">Database Error <p class="red"> ({{ database_error_count }})</p></a>
+            <a href="/configuration" class="styled-link">Config Error <p class="red">({{ config_count }})</p></a>
+            <a href="/client" class="styled-link">404 bad request <p class="red">({{ client_count }})</p></a>
+      
+        </div>
+
+        <!-- Error Types Table -->
+        <h3>Error Types Table</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Error Type</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for error_type, count in error_counts.items %}
+                <tr>
+                    <td>{{ error_type }}</td>
+                    <td>{{ count }}</td>
+
+                </tr>
+                
+                {% endfor %}
+                 <td class="message-cell" style="color: red;">Total Error: {{ total }}</td>
+
+            </tbody>
+        </table>
+ 
+        <!-- Top Error Messages Table -->
+        <h3>Top occurrence Error Messages</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Occurrences</th>
+                    <th>Error Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message, count in top_error_messages.items %}
+                <tr>
+                    <td>{{ count }}</td>
+                    <td class="message-cell">{{ message }}</td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>

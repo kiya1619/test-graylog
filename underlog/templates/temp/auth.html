@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication related Error</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        padding: 20px;
+    }
+    table {
+        width: 90%;
+        margin: 50px auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 18px;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    nav {
+            background-color: #042208;
+            padding: 20px;
+            text-align: center;
+        }
+        nav,h1{
+            color: rgb(250, 246, 246);
+            font-weight: bolder;
+        }
+</style>
+<nav>
+    <h1>Authentication Errors</h1>
+</nav>
+
+<body>
+    
+    <h1>Authentication  Errors</h1>
+    <table>
+        <tr>
+            <th>Timestamp</th>
+            <th>Source</th>
+            <th>Message (total = {{ cnt }})</th>
+        </tr>
+        {% for log in auth_error_logs.itertuples %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ log.source }}</td>
+            <td>{{ log.message }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    
+</body>
+</html>

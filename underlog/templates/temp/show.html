@@ -1,0 +1,151 @@
+{% load static %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    table {
+        width: 90%;
+        margin: 50px auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 18px;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    caption {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    /* Flexbox layout for the images */
+    .image-container {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
+    .image-container div {
+        width: 45%; /* Limit width of each image container */
+    }
+    .image-container img {
+        width: 100%; /* Take up the full width of the container */
+        height: auto; /* Maintain aspect ratio */
+        min-width: 300px; /* Prevent images from shrinking too small */
+    }
+    .styled-link {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        text-decoration: none;
+        background-color: #007BFF; /* Blue background */
+        border-radius: 5px;       /* Rounded corners */
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    nav {
+            background-color: #042208;
+            padding: 20px;
+            text-align: center;
+        }
+
+    /* Hover effect */
+    .styled-link:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+        transform: scale(1.05);    /* Slight zoom effect */
+    }
+
+    /* Focus effect for accessibility */
+    .styled-link:focus {
+        outline: 2px solid #0056b3; /* Add focus outline */
+        outline-offset: 4px;
+    }
+</style>
+
+<nav>
+    <a href="/errorcategory" class="styled-link">Error Category</a>
+    <a href="/logs" class="styled-link">ALL Logs</a>
+    <a href="/source_cat" class="styled-link"> Source Category</a>
+
+
+</nav>
+
+<!-- Container to wrap the entire content -->
+<div class="container">
+    <h1 class="text-center">Log Analysis Dashboard</h1>
+
+    <!-- Link to show trend -->
+   
+
+    {% load static %}
+    <!-- Display the Top 10 Sources and Error Frequency Plots side by side -->
+    <div class="image-container">
+        <div>
+            <h3 class="text-center" style="color: green;">Top 10 Error Sources</h3><br>
+            <img src="{% static top_sources_plot %}" alt="Top Sources Plot" class="img-fluid">
+        </div>
+        <div>
+            <h3 class="text-center" style="color: green;">Error Frequency</h3><br>
+            <img src="{% static error_frequency_plot %}" alt="Error Frequency Plot" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Additional images (Error Types Plot and others) -->
+    <div class="image-container">
+        <div>
+            <h3 class="text-center" style="color: green;">Error Types</h3><br>
+            <img src="{% static plot_image %}" alt="Error Types Plot" style="max-width: 100%; margin-right: 10px;">
+        </div>
+        <div>
+            <h3 class="text-center" style="color: green;">Error Types bar</h3><br>
+            <img src="{% static error_types_plot %}" alt="Error Types Plot" style="max-width: 100%;">
+            <h2>Severity Levels Chart</h2>
+            <img src="{% static severity_image %}" alt="Severity Levels Chart">
+
+
+        </div>
+    </div>
+    {% for severity, count in severity_counts.items %}
+        <tr>
+            <td>{{ severity }}</td>
+            <td>{{ count }}</td>
+        </tr>
+        {% endfor %}
+
+    <!-- Display the Error Frequency Data in a Table -->
+    
+    <table class="table table-bordered">
+        <h3 class="text" style="text-align: center; color: green;">Error Frequency Data</h3>
+
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Number of Errors</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for time, count in error_frequency.items %}
+                <tr>
+                    <td>{{ time }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

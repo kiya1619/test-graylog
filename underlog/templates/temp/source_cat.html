@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Sources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e1f5fe;
+        }
+
+        td {
+            color: #555;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        caption {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            color: #333;
+        }
+        nav {
+                background-color: #444;
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+            }
+            nav a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                font-size: 18px;
+                margin: 0 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+            nav a:hover {
+                background-color: #555;
+            }
+            .styled-link {
+                display: inline-flex;
+                background-color: #0056b3;
+                align-items: center;
+                text-decoration: none;
+                font-size: 16px;
+                color: white;
+                padding: 10px;
+                border: 1px solid #007BFF;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+            .styled-link:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+            }
+            .styled-link:focus {
+                outline: 2px solid #0056b3;
+                outline-offset: 4px;
+            }
+    </style>
+</head>
+
+<nav>
+    <a href="/show" class="styled-link">Show Visual</a>
+    <a href="/errorcategory" class="styled-link"> Error Category</a>
+    <a href="/send_email_view" class="styled-link"> send email</a>
+
+</nav>
+<body>
+    <h3>Top 10 Sources</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Source</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for source, count in top_sources.items %}
+            <tr>
+                <td>{{ source }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

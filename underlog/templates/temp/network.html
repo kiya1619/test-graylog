@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network related Errors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        table {
+            width: 90%;
+            margin: 50px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        nav {
+            background-color: #042208;
+            padding: 20px;
+            text-align: center;
+        }
+        nav,h1{
+            color: rgb(250, 246, 246);
+            font-weight: bolder;
+            font-size: 40px;
+        }
+</style>
+        
+    </style>
+</head>
+<nav>
+    <h1>Network  Errors</h1>
+</nav>
+<body>
+    <div class="container">
+        
+        
+        <!-- Display the Network Error Logs in a Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Source</th>
+                    <th>Message (total = {{ cnt }})</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in network_error_logs.itertuples %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.source }}</td>
+                    <td>{{ log.message }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">No network errors found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
